@@ -1,0 +1,8 @@
+hash: 6cd1d70f33119633c5c259cce2f2b7f04af45382642b190c0acca82cecf3f296
+updated: 2016-12-02T09:57:01.980731038-06:00
+imports:
+- name: github.com/pkg/errors
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
+- name: github.com/scgolang/osc
+  version: ea7e8cdae0a3eae66bb41d9f1f32dd9e878dc071
+testImports: []
