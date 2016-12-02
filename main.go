@@ -19,11 +19,8 @@ func main() {
 	)
 	flag.Parse()
 
-	msg, err := osc.NewMessage(*address)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if err := addArgs(msg, flag.Args()); err != nil {
+	msg := osc.Message{Address: *address}
+	if err := addArgs(&msg, flag.Args()); err != nil {
 		log.Fatal(err)
 	}
 
@@ -62,17 +59,13 @@ func addArg(msg *osc.Message, arg string) error {
 	default:
 		return errors.New("unsupported typetag: " + typetag)
 	case "s":
-		if err := msg.WriteString(data); err != nil {
-			return errors.Wrapf(err, "could not add %s to message", data)
-		}
+		msg.Arguments = append(msg.Arguments, osc.String(data))
 	case "i":
 		i, err := strconv.ParseInt(data, 10, 64)
 		if err != nil {
 			return errors.Wrapf(err, "could not parse integer from %s", data)
 		}
-		if err := msg.WriteInt32(int32(i)); err != nil {
-			return errors.Wrap(err, "could not add integer to message")
-		}
+		msg.Arguments = append(msg.Arguments, osc.Int(i))
 	}
 	return nil
 }
